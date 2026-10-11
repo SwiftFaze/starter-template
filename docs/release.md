@@ -88,3 +88,12 @@ document what it produces here.
    either switch `release-type` in both configs to that ecosystem (`maven`,
    `node`...) or add an `extra-files` entry pointing at it, and extend the
    `no-manual-release-edits` job in `repo-hygiene.yml` to guard that file.
+
+## Resetting the release history
+
+The `no-manual-release-edits` check blocks any PR that touches `CHANGELOG.md`
+or the manifests. For a deliberate reset (for example, wiping inherited history
+after cutting a project from a template, or restarting at a new version), add
+the `release-reset` label to that PR: the check passes with a notice and
+re-runs as soon as the label changes. Never use it to get an ordinary change
+past the check.

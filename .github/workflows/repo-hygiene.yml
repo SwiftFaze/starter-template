@@ -8,6 +8,9 @@ name: Repo hygiene
 on:
   pull_request:
     branches: [master, develop]
+    # edited: re-check the PR body after a fix; labeled/unlabeled: the
+    # release-reset label below must take effect without a new push.
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
 
 jobs:
   # Was: CLAUDE.md and .claude/workflow.md growing without bound as one-off
@@ -52,6 +55,9 @@ jobs:
   # Was: CLAUDE.md "Never hand-edit the project version or CHANGELOG.md".
   # Release Please derives both from Conventional Commits; a manual edit puts
   # the repo and the release tooling out of step.
+  # A deliberate reset of the release history (e.g. a project cut from a
+  # template) carries the `release-reset` label instead: visible on the PR,
+  # and nobody adds it by accident (docs/release.md).
   no-manual-release-edits:
     runs-on: ubuntu-latest
     steps:
@@ -63,11 +69,16 @@ jobs:
         env:
           HEAD_REF: ${{ github.head_ref }}
           BASE_REF: ${{ github.base_ref }}
+          RELEASE_RESET: ${{ contains(github.event.pull_request.labels.*.name, 'release-reset') }}
         run: |
           case "$HEAD_REF" in
             release-please--branches--*|develop)
               echo "Exempt branch '$HEAD_REF' - skipping."; exit 0 ;;
           esac
+          if [ "$RELEASE_RESET" = "true" ]; then
+            echo "::notice::'release-reset' label present - release files may change in this PR."
+            exit 0
+          fi
 
           # TEMPLATE: if release-please-config.json bumps a version inside a
           # build file (pom.xml, package.json...), add that check here too.
