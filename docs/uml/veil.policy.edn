@@ -1,0 +1,13 @@
+;; Layers for the uml-viewer diagram (target/uml/veil.edn), mirroring
+;; docs/architecture.md and ModuleDependencyTest: engine packages sit below
+;; ui, and ui sits below Main. Groups are ordered inner (index 0) to outer;
+;; the viewer draws a dependency from an inner group to an outer one red.
+;; Package names are the segments under com.swiftfaze.veil; a root-package
+;; class is its kebab-case name (Main -> main). sandbox is dev-only UI tooling,
+;; so it shares the ui level. This file never adds a rule ArchUnit lacks.
+{:hierarchical true
+ :title "Veil"
+ :prefix "com.swiftfaze.veil"
+ :levels [[game world mods entities]
+          [ui sandbox]
+          [main]]}

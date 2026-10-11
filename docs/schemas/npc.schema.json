@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NPC",
+  "description": "A non-player character with an id, name, glyph, spawn tile and an optional patrol route",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "symbol", "color", "spawn"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced NPC id (e.g., 'core:guard')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for this NPC"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "ASCII character to render this NPC with",
+      "minLength": 1
+    },
+    "color": {
+      "type": "object",
+      "description": "RGB color for this NPC",
+      "additionalProperties": false,
+      "required": ["r", "g", "b"],
+      "properties": {
+        "r": { "type": "integer", "minimum": 0, "maximum": 255, "description": "Red component (0-255)" },
+        "g": { "type": "integer", "minimum": 0, "maximum": 255, "description": "Green component (0-255)" },
+        "b": { "type": "integer", "minimum": 0, "maximum": 255, "description": "Blue component (0-255)" }
+      }
+    },
+    "spawn": {
+      "$ref": "#/$defs/tileCoord",
+      "description": "Tile where the NPC starts. If patrol is present, must equal the first patrol waypoint."
+    },
+    "patrol": {
+      "type": "object",
+      "description": "Optional patrol route. Omit for a stationary NPC.",
+      "additionalProperties": false,
+      "required": ["waypoints"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["ping_pong", "loop"],
+          "default": "ping_pong",
+          "description": "ping_pong (default) paces back and forth; loop returns from the last waypoint to the first"
+        },
+        "waypoints": {
+          "type": "array",
+          "description": "At least two tile coordinates. Each leg (including last-to-first for loop) must be a straight horizontal or vertical line.",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/tileCoord" }
+        }
+      }
+    },
+    "dialogue": {
+      "type": "string",
+      "description": "Optional id of a dialogue (dialogues/*.json) the player talks to this NPC with. Omit for an NPC that cannot be talked to. The loader rejects an id no mod defines.",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this NPC overrides another NPC with the same id"
+    }
+  },
+  "$defs": {
+    "tileCoord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "integer", "minimum": 0, "description": "Tile column" },
+        "y": { "type": "integer", "minimum": 0, "description": "Tile row" }
+      }
+    }
+  }
+}

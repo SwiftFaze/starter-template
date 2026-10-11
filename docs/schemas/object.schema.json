@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Object",
+  "description": "A world object (chest or door) that the player can interact with using the E key. The type selects the Java class; the remaining fields are its instance data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "type", "color"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced object id (e.g., 'core:wooden_door')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "type": {
+      "type": "string",
+      "description": "Object type: 'chest' or 'door'. Unknown types are rejected by the loader, which names them."
+    },
+    "color": {
+      "type": "object",
+      "description": "RGB color for this object's glyph",
+      "additionalProperties": false,
+      "required": ["r", "g", "b"],
+      "properties": {
+        "r": { "type": "integer", "description": "Red component (0-255)" },
+        "g": { "type": "integer", "description": "Green component (0-255)" },
+        "b": { "type": "integer", "description": "Blue component (0-255)" }
+      }
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Chest only: ASCII character to draw the chest with",
+      "minLength": 1
+    },
+    "slots": {
+      "type": "integer",
+      "description": "Chest only: number of content slots",
+      "minimum": 1
+    },
+    "contents": {
+      "type": "array",
+      "description": "Chest only: ids of the items placed in the first slots, in order",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+      }
+    },
+    "open": {
+      "type": "boolean",
+      "description": "Door only: whether the door starts open (default false, closed)"
+    },
+    "symbolOpen": {
+      "type": "string",
+      "description": "Door only: ASCII character drawn while the door is open",
+      "minLength": 1
+    },
+    "symbolClosed": {
+      "type": "string",
+      "description": "Door only: ASCII character drawn while the door is closed",
+      "minLength": 1
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this object overrides another object with the same id"
+    }
+  },
+  "if": {
+    "properties": { "type": { "const": "chest" } },
+    "required": ["type"]
+  },
+  "then": {
+    "required": ["symbol", "slots"]
+  },
+  "else": {
+    "if": {
+      "properties": { "type": { "const": "door" } },
+      "required": ["type"]
+    },
+    "then": {
+      "required": ["symbolOpen", "symbolClosed"]
+    }
+  }
+}

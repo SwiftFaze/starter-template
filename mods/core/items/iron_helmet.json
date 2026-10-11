@@ -1,0 +1,14 @@
+{
+  "id": "core:iron_helmet",
+  "name": "Iron Helmet",
+  "glyph": "^",
+  "type": "armor",
+  "slot": "head",
+  "effects": [
+    {
+      "type": "stat_bonus",
+      "stat": "constitution",
+      "calc": "level*0.5+2"
+    }
+  ]
+}

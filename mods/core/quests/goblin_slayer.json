@@ -1,0 +1,9 @@
+{
+  "id": "core:goblin_slayer",
+  "name": "Goblin Slayer",
+  "objective": { "type": "kill", "target": "core:goblin", "count": 5 },
+  "rewards": [
+    { "type": "item", "id": "core:iron_sword", "count": 1 },
+    { "type": "xp", "calc": "level*25" }
+  ]
+}

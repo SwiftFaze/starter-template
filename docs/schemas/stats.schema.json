@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stat Registry",
+  "description": "Registry of available stat names (stats.json from core mod)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "stats": {
+      "type": "array",
+      "description": "List of stat names available to classes and items",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

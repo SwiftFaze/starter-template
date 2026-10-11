@@ -1,0 +1,7 @@
+{
+  "id": "core:wooden_bow",
+  "name": "Wooden Bow",
+  "glyph": "}",
+  "type": "weapon",
+  "slot": "main_hand"
+}

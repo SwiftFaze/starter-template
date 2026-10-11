@@ -1,0 +1,10 @@
+{
+  "id": "core:water",
+  "symbol": "⠭",
+  "color": {
+    "r": 174,
+    "g": 191,
+    "b": 232
+  },
+  "walkable": false
+}

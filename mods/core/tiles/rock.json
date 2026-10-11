@@ -1,0 +1,10 @@
+{
+  "id": "core:rock",
+  "symbol": "⠶",
+  "color": {
+    "r": 197,
+    "g": 197,
+    "b": 197
+  },
+  "walkable": false
+}

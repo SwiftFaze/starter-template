@@ -1,0 +1,10 @@
+{
+  "id": "core:lava",
+  "symbol": "^",
+  "color": {
+    "r": 240,
+    "g": 160,
+    "b": 160
+  },
+  "walkable": false
+}

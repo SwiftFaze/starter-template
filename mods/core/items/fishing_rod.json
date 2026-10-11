@@ -1,0 +1,7 @@
+{
+  "id": "core:fishing_rod",
+  "name": "Fishing Rod",
+  "glyph": "/",
+  "type": "tool",
+  "slot": "main_hand"
+}

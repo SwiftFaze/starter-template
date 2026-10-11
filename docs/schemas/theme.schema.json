@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Widget Color Theme",
+  "description": "A complete set of 13 widget colors for UI rendering",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "colors"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced theme id (e.g., 'core:default')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "colors": {
+      "type": "object",
+      "description": "All 13 required widget colors",
+      "additionalProperties": false,
+      "required": [
+        "SELECTED_HIGHLIGHT",
+        "SELECTED_TEXT",
+        "NORMAL_TEXT",
+        "DIMMED_TEXT",
+        "BACKGROUND",
+        "INVALID_HIGHLIGHT",
+        "VALID_HIGHLIGHT",
+        "TABLE_HEADER_BACKGROUND",
+        "BORDER",
+        "SCROLLBAR_THUMB",
+        "ACCENT",
+        "WINDOW_BORDER",
+        "TABLE_HEADER_TEXT"
+      ],
+      "properties": {
+        "SELECTED_HIGHLIGHT": {
+          "$ref": "#/$defs/color"
+        },
+        "SELECTED_TEXT": {
+          "$ref": "#/$defs/color"
+        },
+        "NORMAL_TEXT": {
+          "$ref": "#/$defs/color"
+        },
+        "DIMMED_TEXT": {
+          "$ref": "#/$defs/color"
+        },
+        "BACKGROUND": {
+          "$ref": "#/$defs/color"
+        },
+        "INVALID_HIGHLIGHT": {
+          "$ref": "#/$defs/color"
+        },
+        "VALID_HIGHLIGHT": {
+          "$ref": "#/$defs/color"
+        },
+        "TABLE_HEADER_BACKGROUND": {
+          "$ref": "#/$defs/color"
+        },
+        "BORDER": {
+          "$ref": "#/$defs/color"
+        },
+        "SCROLLBAR_THUMB": {
+          "$ref": "#/$defs/color"
+        },
+        "ACCENT": {
+          "$ref": "#/$defs/color"
+        },
+        "WINDOW_BORDER": {
+          "$ref": "#/$defs/color"
+        },
+        "TABLE_HEADER_TEXT": {
+          "$ref": "#/$defs/color"
+        }
+      }
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this theme overrides another theme with the same id"
+    }
+  },
+  "$defs": {
+    "color": {
+      "type": "object",
+      "description": "An RGB color",
+      "additionalProperties": false,
+      "required": ["r", "g", "b"],
+      "properties": {
+        "r": {
+          "type": "integer",
+          "description": "Red component (0-255)"
+        },
+        "g": {
+          "type": "integer",
+          "description": "Green component (0-255)"
+        },
+        "b": {
+          "type": "integer",
+          "description": "Blue component (0-255)"
+        }
+      }
+    }
+  }
+}

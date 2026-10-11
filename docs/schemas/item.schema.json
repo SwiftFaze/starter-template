@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Item",
+  "description": "An item with id, name, glyph, type, slot, optional base damage, and optional effects",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "glyph", "type", "slot"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced item id (e.g., 'core:iron_sword')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for this item"
+    },
+    "glyph": {
+      "type": "string",
+      "description": "ASCII character to render this item with",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of item (e.g., 'weapon', 'armor')"
+    },
+    "slot": {
+      "type": "string",
+      "description": "Equipment slot this item occupies (e.g., 'main_hand', 'chest')"
+    },
+    "baseDamage": {
+      "type": "object",
+      "description": "Base damage range for this item (optional, defaults to 0-0)",
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "type": "integer",
+          "description": "Minimum damage (optional, defaults to 0)"
+        },
+        "max": {
+          "type": "integer",
+          "description": "Maximum damage (optional, defaults to 0)"
+        }
+      }
+    },
+    "effects": {
+      "type": "array",
+      "description": "List of stat effects this item provides (optional, defaults to empty)",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "stat", "calc"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Effect type (e.g., 'stat_bonus')"
+          },
+          "stat": {
+            "type": "string",
+            "description": "Stat this effect applies to"
+          },
+          "calc": {
+            "type": "string",
+            "description": "Calculation expression for this effect"
+          }
+        }
+      }
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this item overrides another item with the same id"
+    }
+  }
+}

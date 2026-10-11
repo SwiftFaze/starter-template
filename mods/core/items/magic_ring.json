@@ -1,0 +1,14 @@
+{
+  "id": "core:magic_ring",
+  "name": "Magic Ring",
+  "glyph": "o",
+  "type": "accessory",
+  "slot": "ring",
+  "effects": [
+    {
+      "type": "stat_bonus",
+      "stat": "wisdom",
+      "calc": "level*1+3"
+    }
+  ]
+}

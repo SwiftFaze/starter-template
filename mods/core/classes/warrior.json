@@ -1,0 +1,14 @@
+{
+  "id": "core:warrior",
+  "name": "Warrior",
+  "stats": {
+    "strength": { "base": 15 },
+    "dexterity": { "base": 10 },
+    "constitution": { "base": 14 },
+    "intelligence": { "base": 6 },
+    "wisdom": { "base": 6 },
+    "luck": { "base": 8 },
+    "maxHp": { "base": 120 },
+    "maxMana": { "base": 20 }
+  }
+}

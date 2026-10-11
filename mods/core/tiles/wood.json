@@ -1,0 +1,10 @@
+{
+  "id": "core:wood",
+  "symbol": "⠿",
+  "color": {
+    "r": 224,
+    "g": 196,
+    "b": 160
+  },
+  "walkable": true
+}

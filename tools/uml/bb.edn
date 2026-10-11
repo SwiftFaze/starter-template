@@ -1,0 +1,24 @@
+;; Run from tools/uml: `bb export`, then `bb view`. Local tooling only.
+;; The viewer reads .metrics/ by walking up from the IR path, so it finds the
+;; repo root's .metrics/ (crap.edn from `mvn verify`, mutate/ from `bb metrics`).
+{:tasks
+ {:init (def repo (-> (babashka.fs/path (System/getProperty "user.dir")) babashka.fs/parent babashka.fs/parent str))
+  export {:doc "Write target/uml/veil.edn from the compiled classes (and convert PIT XML if present)"
+          :task (shell {:dir repo} "mvn" "-q" "test-compile" "exec:java"
+                       "-Dexec.classpathScope=test"
+                       "-Dexec.mainClass=com.swiftfaze.veil.testing.uml.UmlExport")}
+  metrics {:doc "Convert target/pit-reports/mutations.xml to .metrics/mutate/ (run mutationCoverage first)"
+           :task (shell {:dir repo} "mvn" "-q" "test-compile" "exec:java"
+                        "-Dexec.classpathScope=test"
+                        "-Dexec.mainClass=com.swiftfaze.veil.testing.uml.PitMutationMetrics")}
+  view {:doc "Open the viewer on target/uml/veil.edn (run bb export first)"
+        :task (clojure "-M:uml" (str (babashka.fs/path repo "target" "uml" "veil.edn")))}
+  uml {:doc "Export, then open the viewer (colours from the last mvn verify / PIT run)"
+       :task (do (run 'export) (run 'view))}
+  uml-fresh {:doc "mvn verify + PIT for fresh CRAP and mutation colouring, then export and view (PIT takes ~17 min)"
+             ;; :continue on PIT: a run under the mutation threshold still writes
+             ;; mutations.xml, which is all the overlay needs.
+             :task (do (shell {:dir repo} "mvn" "verify")
+                       (shell {:dir repo :continue true} "mvn" "org.pitest:pitest-maven:mutationCoverage")
+                       (run 'export)
+                       (run 'view))}}}

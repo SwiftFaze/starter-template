@@ -1,0 +1,10 @@
+{
+  "id": "core:ice",
+  "symbol": "⠨",
+  "color": {
+    "r": 210,
+    "g": 240,
+    "b": 255
+  },
+  "walkable": false
+}

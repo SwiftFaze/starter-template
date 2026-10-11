@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Player Class",
+  "description": "A player class with id, name, and optional stat progressions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced class id (e.g., 'core:warrior')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for this class"
+    },
+    "stats": {
+      "type": "object",
+      "description": "Base stats and growth calculations for this class (optional)",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "base": {
+            "type": "integer",
+            "description": "Base value for this stat"
+          },
+          "growth": {
+            "type": "string",
+            "description": "Growth formula as a calc expression"
+          }
+        }
+      }
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this class overrides another class with the same id"
+    }
+  }
+}

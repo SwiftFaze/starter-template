@@ -1,0 +1,6 @@
+{
+  "id": "test:stone",
+  "symbol": "#",
+  "color": "this-should-be-an-object",
+  "walkable": false
+}

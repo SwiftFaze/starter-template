@@ -1,0 +1,10 @@
+{
+  "id": "core:sand",
+  "symbol": "⠋",
+  "color": {
+    "r": 197,
+    "g": 175,
+    "b": 110
+  },
+  "walkable": true
+}

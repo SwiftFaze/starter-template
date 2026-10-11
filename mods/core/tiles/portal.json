@@ -1,0 +1,10 @@
+{
+  "id": "core:portal",
+  "symbol": "O",
+  "color": {
+    "r": 216,
+    "g": 180,
+    "b": 232
+  },
+  "walkable": false
+}

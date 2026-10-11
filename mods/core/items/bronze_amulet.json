@@ -1,0 +1,7 @@
+{
+  "id": "core:bronze_amulet",
+  "name": "Bronze Amulet",
+  "glyph": "*",
+  "type": "accessory",
+  "slot": "neck"
+}

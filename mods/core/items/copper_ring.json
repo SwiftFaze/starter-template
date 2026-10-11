@@ -1,0 +1,7 @@
+{
+  "id": "core:copper_ring",
+  "name": "Copper Ring",
+  "glyph": "o",
+  "type": "accessory",
+  "slot": "ring"
+}

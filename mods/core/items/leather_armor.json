@@ -1,0 +1,14 @@
+{
+  "id": "core:leather_armor",
+  "name": "Leather Armor",
+  "glyph": "[",
+  "type": "armor",
+  "slot": "chest",
+  "effects": [
+    {
+      "type": "stat_bonus",
+      "stat": "constitution",
+      "calc": "level*1+1"
+    }
+  ]
+}

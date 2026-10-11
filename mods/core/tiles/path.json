@@ -1,0 +1,10 @@
+{
+  "id": "core:path",
+  "symbol": "·",
+  "color": {
+    "r": 224,
+    "g": 209,
+    "b": 180
+  },
+  "walkable": true
+}

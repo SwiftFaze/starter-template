@@ -1,0 +1,7 @@
+{
+  "id": "core:waterskin",
+  "name": "Waterskin",
+  "glyph": "~",
+  "type": "consumable",
+  "slot": "none"
+}

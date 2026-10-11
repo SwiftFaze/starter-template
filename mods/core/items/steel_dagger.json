@@ -1,0 +1,18 @@
+{
+  "id": "core:steel_dagger",
+  "name": "Steel Dagger",
+  "glyph": "-",
+  "type": "weapon",
+  "slot": "main_hand",
+  "baseDamage": {
+    "min": 2,
+    "max": 5
+  },
+  "effects": [
+    {
+      "type": "stat_bonus",
+      "stat": "dexterity",
+      "calc": "level*1+2"
+    }
+  ]
+}

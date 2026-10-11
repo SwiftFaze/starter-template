@@ -1,0 +1,7 @@
+{
+  "script": "map-movement.keys",
+  "expect": [
+    {"type": "PlayerMoved", "x": 126, "y": 125},
+    {"type": "PlayerMoved", "x": 127, "y": 125}
+  ]
+}

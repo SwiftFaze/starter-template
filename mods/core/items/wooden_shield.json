@@ -1,0 +1,14 @@
+{
+  "id": "core:wooden_shield",
+  "name": "Wooden Shield",
+  "glyph": "0",
+  "type": "armor",
+  "slot": "off_hand",
+  "effects": [
+    {
+      "type": "stat_bonus",
+      "stat": "constitution",
+      "calc": "level*0.5+1"
+    }
+  ]
+}

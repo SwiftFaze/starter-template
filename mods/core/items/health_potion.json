@@ -1,0 +1,7 @@
+{
+  "id": "core:health_potion",
+  "name": "Health Potion",
+  "glyph": "!",
+  "type": "consumable",
+  "slot": "none"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "core:grass",
+  "symbol": "⡐",
+  "color": {
+    "r": 179,
+    "g": 224,
+    "b": 160
+  },
+  "walkable": true
+}

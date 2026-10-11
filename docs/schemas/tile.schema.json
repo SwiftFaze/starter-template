@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tile",
+  "description": "A walkable or non-walkable tile type with a symbol and color",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "symbol", "color", "walkable"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced tile id (e.g., 'core:grass')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "ASCII character to render this tile with",
+      "minLength": 1
+    },
+    "color": {
+      "type": "object",
+      "description": "RGB color for this tile",
+      "additionalProperties": false,
+      "required": ["r", "g", "b"],
+      "properties": {
+        "r": {
+          "type": "integer",
+          "description": "Red component (0-255)"
+        },
+        "g": {
+          "type": "integer",
+          "description": "Green component (0-255)"
+        },
+        "b": {
+          "type": "integer",
+          "description": "Blue component (0-255)"
+        }
+      }
+    },
+    "walkable": {
+      "type": "boolean",
+      "description": "Whether a player can walk on this tile"
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this tile overrides another tile with the same id"
+    }
+  }
+}

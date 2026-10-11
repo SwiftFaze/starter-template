@@ -1,0 +1,7 @@
+{
+  "id": "core:spare_cloth",
+  "name": "Spare Cloth",
+  "glyph": "=",
+  "type": "misc",
+  "slot": "none"
+}

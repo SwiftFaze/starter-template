@@ -1,0 +1,11 @@
+{
+  "id": "test:wood",
+  "symbol": "W",
+  "color": {
+    "r": 100,
+    "g": 50,
+    "b": 0
+  },
+  "walkable": true,
+  "overides": "core:wood"
+}

@@ -1,0 +1,17 @@
+# CRAP baseline - methods currently exceeding the gate limit.
+# Format: <fully.qualified.ClassName>#<method> <score>
+# The baseline only shrinks; worse scores or new entries fail check-quality-gates.sh.
+# To remove an entry, fix the method to score below crap.max (10).
+#
+# Initial baseline from mvn verify run (d54e377).
+# These are high-complexity methods in UI widgets with low coverage.
+# See crap-gate.feature for full ratchet rules.
+#
+com.swiftfaze.veil.ui.SettingsKeybindsPanel$KeybindsKeyListener#handleNavigationKey 56.0
+com.swiftfaze.veil.ui.widget.PatternFieldWidget$BlockCaret#paint 20.0
+com.swiftfaze.veil.ui.widget.RadioGroupWidget$RadioOptionBorder#paintBorder 12.0
+com.swiftfaze.veil.ui.widget.PatternFieldWidget$PlaceholderTextField#paintComponent 12.0
+com.swiftfaze.veil.ui.widget.RadioGroupWidget#getMaximumSize 12.0
+com.swiftfaze.veil.ui.SettingsKeybindsPanel#moveFooterLeft 12.0
+com.swiftfaze.veil.ui.SettingsKeybindsPanel#moveFooterRight 12.0
+com.swiftfaze.veil.ui.SettingsScreenPanel#getItemValue 12.0

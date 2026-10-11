@@ -1,0 +1,7 @@
+{
+  "id": "core:leather_gloves",
+  "name": "Leather Gloves",
+  "glyph": "g",
+  "type": "armor",
+  "slot": "hands"
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dialogue",
+  "description": "A branching conversation: the start node and the nodes it reaches, by id. A choice with no next ends the conversation. The loader also checks what this schema cannot: the start node exists, every next names a node, each node has 1 to 9 choices, text is not blank, and every node is reachable from start.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "start", "nodes"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced dialogue id (e.g., 'core:town_guard_chat')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "start": {
+      "type": "string",
+      "description": "Id of the node the conversation opens on"
+    },
+    "nodes": {
+      "type": "object",
+      "description": "Every node of the conversation, keyed by node id. Cycles back to earlier nodes are allowed.",
+      "additionalProperties": { "$ref": "#/$defs/node" }
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this dialogue overrides another dialogue with the same id"
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "choices"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The NPC's line at this node"
+        },
+        "choices": {
+          "type": "array",
+          "description": "The player's choices at this node: 1 to 9, numbered from 1 in the popup",
+          "items": { "$ref": "#/$defs/choice" }
+        }
+      }
+    },
+    "choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "What the player says"
+        },
+        "next": {
+          "type": "string",
+          "description": "Id of the node this choice leads to. Omit to end the conversation."
+        }
+      }
+    }
+  }
+}

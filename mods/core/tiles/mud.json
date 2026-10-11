@@ -1,0 +1,10 @@
+{
+  "id": "core:mud",
+  "symbol": "⠊",
+  "color": {
+    "r": 103,
+    "g": 76,
+    "b": 41
+  },
+  "walkable": true
+}

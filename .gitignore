@@ -1,0 +1,18 @@
+/target/
+/.idea/
+/dependency-reduced-pom.xml
+/wiki/
+/settings.json
+/.jqwik-database
+
+# Intent docs are local scratch (see specs/intent/README.md) — never committed except the two
+# files the pipeline itself depends on.
+/specs/intent/*
+!/specs/intent/README.md
+!/specs/intent/TEMPLATE.md
+
+# CRAP gate metrics for uml-viewer (written by CrapReport during mvn verify)
+/.metrics/
+
+# uml-viewer session state (tmux/companion mailbox), written by `bb view`
+/.uml-viewer/

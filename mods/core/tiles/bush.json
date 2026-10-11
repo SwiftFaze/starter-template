@@ -1,0 +1,10 @@
+{
+  "id": "core:bush",
+  "symbol": "b",
+  "color": {
+    "r": 180,
+    "g": 224,
+    "b": 180
+  },
+  "walkable": false
+}

@@ -1,0 +1,7 @@
+{
+  "script": "inventory-toggle.keys",
+  "expect": [
+    {"type": "PopupToggled", "name": "inventory", "open": true},
+    {"type": "PopupToggled", "name": "inventory", "open": false}
+  ]
+}

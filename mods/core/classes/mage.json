@@ -1,0 +1,14 @@
+{
+  "id": "core:mage",
+  "name": "Mage",
+  "stats": {
+    "strength": { "base": 6 },
+    "dexterity": { "base": 9 },
+    "constitution": { "base": 8 },
+    "intelligence": { "base": 16 },
+    "wisdom": { "base": 14 },
+    "luck": { "base": 7 },
+    "maxHp": { "base": 70 },
+    "maxMana": { "base": 100 }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "core:travelers_boots",
+  "name": "Traveler's Boots",
+  "glyph": "b",
+  "type": "armor",
+  "slot": "feet"
+}

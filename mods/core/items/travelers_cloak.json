@@ -1,0 +1,14 @@
+{
+  "id": "core:travelers_cloak",
+  "name": "Traveler's Cloak",
+  "glyph": "\"",
+  "type": "armor",
+  "slot": "back",
+  "effects": [
+    {
+      "type": "stat_bonus",
+      "stat": "dexterity",
+      "calc": "level*0.5+1"
+    }
+  ]
+}

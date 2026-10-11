@@ -1,0 +1,7 @@
+{
+  "script": "main-menu.keys",
+  "expect": [
+    {"type": "MenuSelectionChanged", "to": "New"},
+    {"type": "ScreenChanged", "from": "title", "to": "game"}
+  ]
+}

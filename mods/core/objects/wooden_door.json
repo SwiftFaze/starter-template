@@ -1,0 +1,12 @@
+{
+  "id": "core:wooden_door",
+  "type": "door",
+  "color": {
+    "r": 160,
+    "g": 110,
+    "b": 60
+  },
+  "open": false,
+  "symbolOpen": "/",
+  "symbolClosed": "⠶"
+}

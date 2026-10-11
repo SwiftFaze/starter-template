@@ -1,0 +1,9 @@
+;; Local-only viewer toolchain (issue #233 item 5): not part of the Maven build.
+;; Same uml-viewer sha as Veilclj. No `clojure` CLI needed: Babashka's built-in
+;; deps.clj runs this alias (see bb.edn).
+{:aliases
+ {:uml {:extra-deps {io.github.unclebob/uml-viewer
+                     {:git/url "https://github.com/unclebob/uml-viewer"
+                      :git/sha "79cc1ef4e41992ecb1bb17e18f6e7e7ae11a2019"}
+                     quil/quil {:mvn/version "4.3.1563"}}
+        :main-opts ["-m" "uml-viewer.main.uml-viewer"]}}}

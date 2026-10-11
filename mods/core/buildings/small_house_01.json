@@ -1,0 +1,22 @@
+{
+  "id": "core:small_house_01",
+  "name": "small_house_01",
+  "type": "house",
+  "width": 7,
+  "height": 7,
+
+  "tiles": [
+    ["core:stone","core:stone","core:stone","core:stone","core:stone","core:stone","core:stone"],
+    ["core:stone","core:wood","core:wood","core:wood","core:wood","core:wood","core:stone"],
+    ["core:stone","core:wood","core:wood","core:wood","core:wood","core:wood","core:stone"],
+    ["core:stone","core:wood","core:wood","core:wood","core:wood","core:wood","core:stone"],
+    ["core:stone","core:wood","core:wood","core:wood","core:wood","core:wood","core:stone"],
+    ["core:stone","core:wood","core:wood","core:wood","core:wood","core:wood","core:stone"],
+    ["core:stone","core:stone","core:stone","core:wood","core:stone","core:stone","core:stone"]
+  ],
+
+  "objects": [
+    {"id": "core:wooden_door", "x": 3, "y": 6},
+    {"id": "core:starter_chest", "x": 2, "y": 5}
+  ]
+}

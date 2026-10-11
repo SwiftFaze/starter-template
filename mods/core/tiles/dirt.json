@@ -1,0 +1,10 @@
+{
+  "id": "core:dirt",
+  "symbol": "⠍",
+  "color": {
+    "r": 216,
+    "g": 178,
+    "b": 140
+  },
+  "walkable": true
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mod Manifest",
+  "description": "The mod.json manifest that identifies a mod and declares its dependencies",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this mod (not namespaced, e.g., 'core' or 'expanded-quests')"
+    },
+    "dependsOn": {
+      "type": "array",
+      "description": "List of mod ids this mod depends on (optional, defaults to empty)",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

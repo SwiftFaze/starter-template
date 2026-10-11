@@ -1,0 +1,7 @@
+{
+  "id": "core:lantern",
+  "name": "Lantern",
+  "glyph": "!",
+  "type": "misc",
+  "slot": "off_hand"
+}

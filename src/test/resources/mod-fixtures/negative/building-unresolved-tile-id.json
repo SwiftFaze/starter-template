@@ -1,0 +1,9 @@
+{
+  "id": "test:house",
+  "name": "Test House",
+  "width": 1,
+  "height": 1,
+  "tiles": [
+    ["nonexistent:tile"]
+  ]
+}

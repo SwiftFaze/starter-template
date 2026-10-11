@@ -1,0 +1,7 @@
+{
+  "id": "core:iron_arrow_bundle",
+  "name": "Iron Arrow Bundle",
+  "glyph": "|",
+  "type": "ammo",
+  "slot": "none"
+}

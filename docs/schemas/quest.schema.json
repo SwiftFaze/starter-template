@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quest",
+  "description": "A quest with id, name, objective, and optional rewards",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "objective"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Namespaced quest id (e.g., 'core:goblin_slayer')",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[a-z0-9][a-z0-9_-]*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for this quest"
+    },
+    "objective": {
+      "type": "object",
+      "description": "Quest objective",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Objective type (e.g., 'kill')"
+        },
+        "target": {
+          "type": "string",
+          "description": "Target for this objective (e.g., enemy id)"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Target count for this objective"
+        }
+      }
+    },
+    "rewards": {
+      "type": "array",
+      "description": "List of rewards for completing this quest (optional, defaults to empty)",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "item"
+              },
+              "id": {
+                "type": "string",
+                "description": "Item id to reward"
+              },
+              "count": {
+                "type": "integer",
+                "description": "Quantity of items to reward (optional, defaults to 1)"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "calc"],
+            "properties": {
+              "type": {
+                "const": "xp"
+              },
+              "calc": {
+                "type": "string",
+                "description": "Calculation expression for XP reward"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "overrides": {
+      "type": "string",
+      "description": "If present, this quest overrides another quest with the same id"
+    }
+  }
+}
