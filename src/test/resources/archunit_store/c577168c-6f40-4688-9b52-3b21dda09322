@@ -1,2 +1,0 @@
-Method <com.swiftfaze.veil.sandbox.ClassSandboxModel.computedStats(java.lang.String, int)> calls constructor <com.swiftfaze.veil.entities.player.Stats.<init>()> in (ClassSandboxModel.java:32)
-Method <com.swiftfaze.veil.sandbox.PlayerFieldMutator.defaultValue(com.swiftfaze.veil.sandbox.PlayerField)> calls constructor <com.swiftfaze.veil.entities.player.Stats.<init>()> in (PlayerFieldMutator.java:73)

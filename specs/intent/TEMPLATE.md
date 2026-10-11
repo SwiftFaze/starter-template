@@ -1,51 +1,51 @@
-# Intent: <Feature Name>
+# <Feature title>
 
-- **Slug(s):** <feature-slug> (matches `/specs/features/<feature-slug>.feature`)
-  — one intent can produce more than one `.feature` file if it covers more
-  than one distinct concept (e.g. a new class *and* a new biome); list
-  each slug, don't bundle them into one combined file (see
-  `/specs/features/README.md`).
-- **Author:**
-- **Date:** YYYY-MM-DD
+- **Slug(s):** `<feature-slug>` (one slug per distinct concept; one intent can produce several)
+- **Author:** <name>
+- **Date:** <YYYY-MM-DD>
+- **Source:** [GitHub issue #<n>](<url>) or "dictated"
 
 ## Status
 
 - [ ] Intent drafted
-- [ ] Spec drafted (`.feature` file) — high-risk path only, see `.claude/workflow.md`
-- [ ] Approved by human — high-risk path only
+- [ ] Spec drafted (`specs/features/<slug>.feature`)
+- [ ] Approved by human (high-risk path only)
 - [ ] Implemented
-- [ ] Manually playtested (human) — see CLAUDE.md's "Repo-specific Step 4.5"
+- [ ] Manually playtested
 - [ ] Acceptance tests passing
 - [ ] Mutation testing passed
-- [ ] Documentation updated (`docs/`, and the wiki if player-facing)
+- [ ] Documentation updated
 
 ## Problem
 
-What's broken, missing, or manual today? Why does this matter now?
+<What's broken, missing or manual today, and why it matters now.>
 
 ## Scope
 
-What this feature covers. Be explicit about boundaries.
+**In scope:** ...
 
-- In scope:
-- Out of scope:
+**Out of scope:** ...
 
 ## Actors
 
-Who triggers this, who's affected by it (users, other systems, other teams).
+<Who triggers or uses this.>
 
 ## Desired behavior
 
-Plain-language description of the target behavior — not Gherkin yet, just
-enough to draft acceptance scenarios from. Cover the happy path and the
-edge cases that already matter.
+<Plain-language happy path, plus the edge cases and failure cases that already matter.>
 
 ## Constraints / non-functional notes
 
-Anything beyond the global budget in the workflow CLAUDE.md — performance,
-security, data migration concerns, backward compatibility. Leave blank if
-nothing beyond the defaults applies.
+<Anything beyond the project's standard limits, or "none beyond the usual".>
 
 ## Open questions
 
-Anything still undecided. Flag these rather than letting the agent guess.
+<Anything genuinely undecided. Never silently pick an answer here.>
+
+## Clarifications
+
+<!-- Appended by spec-feature / spec-intent-auto. Chronological; never rewrite a past entry.
+- Q: [question as asked]
+  A: [answer as given]   (or "A (auto-decided):" when the agent decided it)
+  Affects: [scenario name(s) or "general"]
+-->

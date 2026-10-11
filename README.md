@@ -1,64 +1,90 @@
-# Veil
+# Starter template: spec-first agentic workflow
 
-Veil is a 2D ASCII-style open-world RPG
+A stack-neutral GitHub template for building with [Claude Code](https://claude.com/claude-code)
+and the [`devflow`](https://github.com/SwiftFaze/claude-lib) plugin: issue →
+intent doc → Gherkin spec → test-first implementation (coder agent) → human
+playtest → hardening (hardener agent) → PR → automatic release.
 
-## Getting the game
+It contains no application code and no build tool. Use it for Java, Angular,
+Node, Python or anything else: the stack-specific parts are a handful of
+commands you fill in once.
 
-Grab the latest installer for your platform from the
-[Releases page](https://github.com/SwiftFaze/Veil/releases) —
-Windows (`.exe`), Linux (`.deb`), and macOS (`.pkg`, unsigned — right-click
-→ Open past the first Gatekeeper warning) are all supported. Prereleases
-tagged `-beta.N` are newer, less stable builds; anything without a beta
-tag is the current stable release.
+## What's in it
 
-## Running from source
+| Path | Purpose |
+|---|---|
+| `CLAUDE.md` | Always-loaded agent instructions: hard rules, entry points, doc map |
+| `.claude/workflow.md` | The pipeline, plus the **Project configuration** table every devflow skill reads |
+| `.claude/settings.json` | Declares the `SwiftFaze/claude-lib` marketplace and enables `devflow` |
+| `.claude/tools/check-clean.sh` | The Clean Code gate: verify + lint commands, diff-scoped smell checks, judgment checklist |
+| `.claude/tools/clean.env` | The commands the gate runs (`VERIFY_CMD`, `LINT_CMD`) |
+| `.claude/tools/check-instruction-budget.sh` | Line budgets for instruction files (CI-enforced) |
+| `.claude/tools/set-project-field.sh` | Sets a GitHub project-board field and reads it back |
+| `.claude/tools/check-qa-coverage.sh` | Optional: every changed `.feature` has a QA procedure |
+| `specs/intent/`, `specs/features/` | Intent docs (gitignored scratch) and executable Gherkin specs |
+| `docs/` | Architecture, testing, release and instruction-file docs (stubs to fill) |
+| `.github/workflows/` | CI, repo hygiene, auto-close of linked issues, Release Please |
 
-Requires JDK 17+ and Maven.
+## Where `.claude/` comes from
 
-```
-mvn compile exec:java
-```
+The workflow kit is initialised from
+[SwiftFaze/claude-lib](https://github.com/SwiftFaze/claude-lib), which holds
+two halves:
 
-## Class/stats sandbox
+- **The `devflow` plugin** (skills + `coder`/`hardener` agents). Not copied
+  here: `.claude/settings.json` enables it, so it updates with the plugin.
+- **The per-project kit in its `lib/`**, copied into this repo:
+  `lib/workflow.md` → `.claude/workflow.md`, `lib/specs/` → `specs/`, and
+  `lib/tools/set-project-field.sh`, `check-qa-coverage.sh` and
+  `check-instruction-budget.sh` → `.claude/tools/`.
 
-A dev-only tool that lists every player class and shows its computed
-stats (attack power, defense, HP, mana) without needing to actually play
-the game. It's not part of the packaged installer.
+Two deliberate differences from `lib/`: `check-clean.sh` here is a
+stack-neutral rewrite (lib's version assumes Maven + PMD/SpotBugs; copy that one
+instead for a Java project that wants the full gate), and the Java-only tools
+(`check-quality-gates.sh`, `check-jqwik-canary.sh`) are left out. To pick up
+later changes to the kit, re-copy those files from claude-lib and keep your
+filled-in Project configuration table.
 
-```
-mvn compile exec:java -Dexec.mainClass=com.swiftfaze.veil.sandbox.ClassSandbox
-```
+## Set up a new project from this template
 
-Edit a class's JSON under `src/main/resources/classes/` and re-run to see
-the change reflected immediately, no recompiling needed.
+1. **Create the repo** with "Use this template", then create the base branch:
+   `git switch -c develop && git push -u origin develop`. Keep `main` as the
+   default branch (it's the release branch).
+2. **Install devflow** if you don't have it: Claude Code offers it on first
+   trust of the folder (from `.claude/settings.json`), or run
+   `/plugin install devflow@claude-lib`.
+3. **Fill in `.claude/workflow.md`**: every `<placeholder>` in the Project
+   configuration table, and the values under Constraints.
+4. **Fill in `.claude/tools/clean.env`** (`VERIFY_CMD`, optional `LINT_CMD`).
+5. **Fill in `CLAUDE.md`**: the project description, Build & run, Docs.
+6. **Make CI build the project**: replace the placeholder step in
+   `.github/workflows/ci.yml` `build-and-test`.
+7. **Project board** (optional): set `PROJECT_NUMBER` / `PROJECT_OWNER` in
+   `.claude/tools/set-project-field.sh` or your environment. The board needs
+   single-select fields `Status` (`Backlog`, `Ready`, `In progress`,
+   `In review`, `Done`) and `Priority` (`P0`, `P1`, `P2`).
+8. **Releases**: follow "One-time setup" in `docs/release.md`
+   (`RELEASE_PLEASE_TOKEN` secret, allow auto-merge).
+9. **Branch protection** on `main` and `develop`: require PRs and the CI and
+   Repo hygiene checks; on `main`, enable "Include administrators".
+10. **Docs**: replace the stubs in `docs/architecture.md` and `docs/testing.md`,
+    then delete this section of the README and describe your project instead.
 
-## Documentation
+Every spot to fill is marked `TEMPLATE` or holds a `<placeholder>`;
+`grep -rn TEMPLATE CLAUDE.md .claude docs .github` finds the marked ones.
 
-- [`CLAUDE.md`](CLAUDE.md) — project conventions and guidance for working in this repo with Claude Code
-- [`docs/architecture.md`](docs/architecture.md) — entry point, render loop, world model, player classes/stats, UI shell
-- [`docs/testing.md`](docs/testing.md) — the three test layers (unit / acceptance / integration) and why they're separated
-- [`docs/release.md`](docs/release.md) — versioning, changelog generation, and how releases are built
-- [`docs/wiki.md`](docs/wiki.md) — how the player-facing wiki is maintained
-- [GitHub Wiki](https://github.com/SwiftFaze/Veil/wiki) — player-facing docs (classes, items, world, etc.)
+## Day-to-day
 
-## Adding a feature or fix (spec-first workflow)
+| Step | Skill |
+|---|---|
+| Think out loud, file an issue (or a milestone of them) | `/devflow:brainstorm-issue`, `/devflow:brainstorm-milestone` |
+| Start an issue: branch, board status, intent doc | `/devflow:spec-intent <n>` |
+| Intent → `.feature` spec | `/devflow:spec-feature` |
+| Coder → playtest → hardener → PR | `/devflow:implement-issue` |
+| Whole standard path unattended, up to the playtest | `/devflow:spec-intent-auto <n>` |
+| Pick up a dead session | `/devflow:resume-issue <n>` |
+| Ship a milestone (develop → main) | `/devflow:close-milestone` |
+| Health-check the board | `/devflow:audit-planning` |
 
-This repo builds every non-trivial change through an intent → spec →
-human approval → implementation pipeline, automated with
-[Claude Code](https://claude.com/claude-code) skills committed under
-`.claude/skills/`. Full policy (model per step, checkpointing,
-constraints) lives in `.claude/workflow.md`; the short version:
-
-| Step | What happens | How |
-|---|---|---|
-| 1. Get the idea into a GitHub issue | Already have one? Skip to step 2. Just want to think out loud and file it for later, not build it now? | Ask Claude to use the **`brainstorm-issue`** skill — it scopes the idea with you and files it (plus a follow-up issue if it splits into "now" vs. "later" work) on the VEIL project board |
-| 2. Start work from the issue | Creates a branch off `develop` linked to the issue, moves the tracker item to *In progress*, and derives `specs/intent/<slug>.md` from the issue's own description | Ask Claude to use the **`spec-intent`** skill with the issue number |
-| 3. Turn the intent into a spec | Generates `specs/features/<slug>.feature` and loops with you on open questions until nothing's left ambiguous | Ask Claude to use the **`spec-feature`** skill, or run `/spec-feature <slug>` |
-| 4. Approve the `.feature` file | No implementation code gets written before this happens | Human review — no skill runs this step |
-| 5. Implementation → acceptance tests → mutation testing → docs | Includes a manual playtest (`mvn compile exec:java`) before acceptance tests get wired up | Handled per Steps 4-7 of `.claude/workflow.md` |
-
-**Prerequisites:** the `gh` CLI, installed and authenticated with the
-`project` scope (`gh auth login`, or `gh auth refresh -s project` if
-already logged in), plus push and project-board access to this repo —
-these skills assume a maintainer running them, not an outside
-contributor without collaborator access.
+**Prerequisites:** `gh` authenticated with the `project` scope
+(`gh auth refresh -s project`), `jq`, and `bash` (Git Bash on Windows).

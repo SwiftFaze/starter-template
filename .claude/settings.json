@@ -1,15 +1,13 @@
 {
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash|PowerShell",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/tools/pit-guard.sh\""
-          }
-        ]
+  "extraKnownMarketplaces": {
+    "claude-lib": {
+      "source": {
+        "source": "github",
+        "repo": "SwiftFaze/claude-lib"
       }
-    ]
+    }
+  },
+  "enabledPlugins": {
+    "devflow@claude-lib": true
   }
 }

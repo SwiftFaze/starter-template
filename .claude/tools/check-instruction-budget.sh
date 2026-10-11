@@ -27,11 +27,11 @@ VERBOSE=0
 
 # path-glob:max_lines. Keep this list in step with docs/instruction-files.md.
 #
-# These are BASELINES, set at each file's size when this check was introduced
-# (2026-09-06), not targets anyone reasoned up to from first principles. A gate
-# that is red the day it lands teaches people to ignore it, so the job here is
-# to stop growth first and ratchet down after - the same "measure a baseline,
-# then hold it" reasoning behind pom.xml's JaCoCo/PIT floors (issue #196).
+# These are BASELINES, set at each file's size when the template was cut, not
+# targets anyone reasoned up to from first principles. A gate that is red the
+# day it lands teaches people to ignore it, so the job here is to stop growth
+# first and ratchet down after - the same "measure a baseline, then hold it"
+# reasoning as coverage floors.
 #
 # Ratchet: whenever a file is trimmed, lower its number here in the same commit.
 # Never raise one without saying in the commit message why the file genuinely
@@ -40,8 +40,8 @@ BUDGETS=(
   "CLAUDE.md:100"
   # Glob, not the one path: a workflow variant is loaded the same way and decays
   # the same way, so a new one must not land unmeasured.
-  ".claude/workflow*.md:145"
-  # Baselined 2026-09-28 at the larger agent file (hardener.md) when added.
+  ".claude/workflow*.md:170"
+  # Project-local agents and skills, if the project adds its own beside devflow.
   ".claude/agents/*.md:60"
   ".claude/skills/*/SKILL.md:215"
   "docs/*.md:250"

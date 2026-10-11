@@ -17,27 +17,25 @@ Budgets are tiered by **how often a file is loaded**, because that is what it
 actually costs — a line in `CLAUDE.md` is paid on every task, a line in a
 `SKILL.md` only when that skill runs.
 
-| File | Loaded | Budget | Now |
-|---|---|---|---|
-| `CLAUDE.md` | every session | 100 lines | 95 |
-| `.claude/workflow*.md` | every pipeline step | 145 lines | 145 |
-| `.claude/agents/*.md` | every agent run | 60 lines | 54–59 |
-| `.claude/skills/*/SKILL.md` | on skill use | 215 lines | 28–210 |
-| `docs/*.md` | on demand | 250 lines | 11–226 |
+| File | Loaded | Budget |
+|---|---|---|
+| `CLAUDE.md` | every session | 100 lines |
+| `.claude/workflow*.md` | every pipeline step | 170 lines |
+| `.claude/agents/*.md` (project-local, if any) | every agent run | 60 lines |
+| `.claude/skills/*/SKILL.md` (project-local, if any) | on skill use | 215 lines |
+| `docs/*.md` | on demand | 250 lines |
 
-These numbers are **baselines, not targets** — each was set at the file's size
-when the check landed, so the gate stops growth immediately and can be tightened
+The devflow plugin's own skills and agents live in the plugin repo and are
+budgeted there, not here.
+
+These numbers are **baselines, not targets** — set at each file's size when the
+template was cut, so the gate stops growth immediately and can be tightened
 afterwards. A gate that is red on the day it arrives teaches everyone to ignore
-it; the same reasoning is why `pom.xml` carries no `<mutationThreshold>` yet.
-
-Four files currently sit above 90% and are the ones to trim first: `CLAUDE.md`
-(95), `.claude/workflow.md` (148), `.claude/skills/audit-planning/SKILL.md`
-(210), `docs/screens.md` (226). **When you trim one, lower its budget in the same
-commit** — that is the ratchet, and without it the baseline just becomes the new
-floor.
+it. **When you trim a file, lower its budget in the same commit** — that is the
+ratchet, and without it the baseline just becomes the new floor.
 
 Enforced by `.claude/tools/check-instruction-budget.sh`, run in CI by
-`.github/workflows/instruction-hygiene.yml`. Run it locally any time:
+`.github/workflows/repo-hygiene.yml`. Run it locally any time:
 
 ```
 bash .claude/tools/check-instruction-budget.sh --verbose
@@ -67,18 +65,12 @@ restatement — two copies drift, and the reader cannot tell which is current.
 
 | Subject | Canonical home |
 |---|---|
-| Pipeline sequencing, gates, thresholds | `.claude/workflow.md` |
+| Pipeline sequencing, gates, thresholds, project configuration | `.claude/workflow.md` |
 | Test layers, runners, test mechanics | `docs/testing.md` |
-| Delegating Steps 4-7 to subagents | `implement-issue` skill; each role in `.claude/agents/` |
-| Scheduling a milestone's issues in parallel | `run-milestone` skill |
+| Delegating Steps 4-7 to subagents | `devflow:implement-issue` skill; each role in the plugin's `agents/` |
 | Release, versioning, changelog | `docs/release.md` |
-| Swing layout, spacing, colour | `docs/ui-styling.md` |
+| Architecture, module boundaries | `docs/architecture.md` |
 | Repo-wide hard prohibitions, entry points | `CLAUDE.md` |
-
-`docs/testing-quality-gates.md` already models this correctly for the PMD/JaCoCo numbers: it
-points at `.claude/workflow.md` as the single source of truth and explicitly
-says *"don't restate them here."* That discipline just needs applying
-everywhere.
 
 ## Review checklist for changes to CLAUDE.md or .claude/*.md
 
@@ -138,7 +130,7 @@ dropped.
 3. **Reference check** — every file path, command, class name, flag, and issue
    number mentioned still resolves:
    ```
-   grep -ohE '`[a-zA-Z0-9_./-]+\.(md|java|xml|yml|feature)`' CLAUDE.md .claude/*.md docs/*.md \
+   grep -ohE '`[a-zA-Z0-9_./-]+\.(md|sh|json|yml|feature)`' CLAUDE.md .claude/*.md docs/*.md \
      | tr -d '`' | sort -u | while read -r f; do
        [ -e "$f" ] || git ls-files --error-unmatch "$f" >/dev/null 2>&1 || echo "MISSING: $f"
      done
@@ -149,7 +141,7 @@ dropped.
 5. **Closed-issue sweep** — every issue number referenced in a rules file:
    ```
    grep -ohE '#[0-9]+' CLAUDE.md .claude/*.md | tr -d '#' | sort -u | while read -r n; do
-     state=$(gh issue view "$n" --repo SwiftFaze/Veil --json state -q .state 2>/dev/null)
+     state=$(gh issue view "$n" --json state -q .state 2>/dev/null)
      [ "$state" = "CLOSED" ] && echo "Issue #$n is CLOSED - is the rule referencing it still needed?"
    done
    ```
@@ -165,22 +157,22 @@ Kept as a record so the same rule does not get re-added as prose later.
 | Was prose in | Now enforced by |
 |---|---|
 | Branch naming convention | `ci.yml` `branch-name` job |
-| Only `develop`/`hotfix/*` may target `master` | `ci.yml` `master-source-check` job + branch protection |
-| Complexity / method length / parameter count | `.pmd-minimal.xml`, PMD `check` at `verify` |
-| 85% line coverage | JaCoCo `check` at `verify` |
-| Engine must not depend on `ui` | `ModuleDependencyTest` (ArchUnit) |
-| "Check for duplicate step definitions before Step 5 is done" | `NoDuplicateStepDefinitionsTest` |
-| "Always put `Closes #N` in the PR body" | `instruction-hygiene.yml` `pr-body` job |
-| "Never hand-edit `pom.xml` `<version>` or `CHANGELOG.md`" | `instruction-hygiene.yml` `no-manual-release-edits` job |
+| Only `develop`/`hotfix/*` may target `main` | `ci.yml` `main-source-check` job + branch protection |
+| "Always put `Closes #N` in the PR body" | `repo-hygiene.yml` `pr-body-closes-issue` job |
+| "Never hand-edit the version or `CHANGELOG.md`" | `repo-hygiene.yml` `no-manual-release-edits` job |
 | Instruction file size | `check-instruction-budget.sh` |
+| Commented-out code, TODOs, lint suppressions in a diff | `check-clean.sh` section 3 |
+
+Add a row whenever a rule moves from prose to a check (complexity limits to a
+linter config, layering to an architecture test, and so on).
 
 **What tooling cannot do here**, so it stays prose: the Step 4.5 human playtest,
 "one `.feature` file per distinct concept", and judgement calls about scope. Do
 not try to mechanize these — a check that approximates a judgement call is worse
 than the prose, because it gets trusted.
 
-A note on limits, learned the expensive way: a lint rule that a test contains
-*an* assertion does not catch a test whose assertion is vacuous. Twenty-four
-tests here asserted `assertNotNull` on a freshly-constructed object and passed
-every gate. Only mutation testing catches that class of problem — see
-`docs/testing-quality-gates.md`. Prefer the check that can actually fail for the right reason.
+A note on limits: a lint rule that a test contains *an* assertion does not
+catch a test whose assertion is vacuous (`assertNotNull` on a freshly
+constructed object passes every gate). Only mutation testing catches that class
+of problem — Step 6 of `.claude/workflow.md`. Prefer the check that can
+actually fail for the right reason.
