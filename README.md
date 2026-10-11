@@ -47,9 +47,11 @@ filled-in Project configuration table.
 
 ## Set up a new project from this template
 
-1. **Create the repo** with "Use this template", then create the base branch:
-   `git switch -c develop && git push -u origin develop`. Keep `main` as the
-   default branch (it's the release branch).
+1. **Create the repo** with "Use this template". The release branch is
+   `master`: if GitHub named the first branch `main`, rename it
+   (`gh api -X POST repos/<owner>/<repo>/branches/main/rename -f new_name=master`).
+   Then create the base branch:
+   `git switch -c develop && git push -u origin develop`.
 2. **Install devflow** if you don't have it: Claude Code offers it on first
    trust of the folder (from `.claude/settings.json`), or run
    `/plugin install devflow@claude-lib`.
@@ -65,8 +67,8 @@ filled-in Project configuration table.
    `In review`, `Done`) and `Priority` (`P0`, `P1`, `P2`).
 8. **Releases**: follow "One-time setup" in `docs/release.md`
    (`RELEASE_PLEASE_TOKEN` secret, allow auto-merge).
-9. **Branch protection** on `main` and `develop`: require PRs and the CI and
-   Repo hygiene checks; on `main`, enable "Include administrators".
+9. **Branch protection** on `master` and `develop`: require PRs and the CI and
+   Repo hygiene checks; on `master`, enable "Include administrators".
 10. **Docs**: replace the stubs in `docs/architecture.md` and `docs/testing.md`,
     then delete this section of the README and describe your project instead.
 
@@ -83,7 +85,7 @@ Every spot to fill is marked `TEMPLATE` or holds a `<placeholder>`;
 | Coder → playtest → hardener → PR | `/devflow:implement-issue` |
 | Whole standard path unattended, up to the playtest | `/devflow:spec-intent-auto <n>` |
 | Pick up a dead session | `/devflow:resume-issue <n>` |
-| Ship a milestone (develop → main) | `/devflow:close-milestone` |
+| Ship a milestone (develop → master) | `/devflow:close-milestone` |
 | Health-check the board | `/devflow:audit-planning` |
 
 **Prerequisites:** `gh` authenticated with the `project` scope

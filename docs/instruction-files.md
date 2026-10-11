@@ -157,7 +157,7 @@ Kept as a record so the same rule does not get re-added as prose later.
 | Was prose in | Now enforced by |
 |---|---|
 | Branch naming convention | `ci.yml` `branch-name` job |
-| Only `develop`/`hotfix/*` may target `main` | `ci.yml` `main-source-check` job + branch protection |
+| Only `develop`/`hotfix/*` may target `master` | `ci.yml` `master-source-check` job + branch protection |
 | "Always put `Closes #N` in the PR body" | `repo-hygiene.yml` `pr-body-closes-issue` job |
 | "Never hand-edit the version or `CHANGELOG.md`" | `repo-hygiene.yml` `no-manual-release-edits` job |
 | Instruction file size | `check-instruction-budget.sh` |

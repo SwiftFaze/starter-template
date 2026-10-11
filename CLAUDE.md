@@ -26,13 +26,13 @@ Re-audit monthly — checklist in `docs/instruction-files.md`.
 
 ## Never do these
 
-- **Never commit or push directly to `main`.** Only two PRs may target it:
+- **Never commit or push directly to `master`.** Only two PRs may target it:
   from `develop` (release promotion) or from `hotfix/*`. Enforced by the
-  `main-source-check` CI job (plus branch protection with `enforce_admins`).
+  `master-source-check` CI job (plus branch protection with `enforce_admins`).
 - **Never merge a feature/fix/docs PR into `develop` with a merge commit** —
   always `gh pr merge <n> --squash --delete-branch`. A merge commit duplicates
   every `CHANGELOG.md` entry (see `docs/release.md`). The one exception is the
-  `develop` → `main` promotion PR, which must stay a true merge
+  `develop` → `master` promotion PR, which must stay a true merge
   (`gh pr merge --merge`) — see the `devflow:close-milestone` skill.
 - **Never hand-edit the project version or `CHANGELOG.md`.** Release Please
   derives both from Conventional Commits — `docs/release.md`.

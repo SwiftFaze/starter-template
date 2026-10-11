@@ -3,13 +3,13 @@
 Versioning and changelog generation are automatic — you should not hand-edit
 the project version or write `CHANGELOG.md` entries by hand.
 
-## Two channels: stable (`main`) and beta (`develop`)
+## Two channels: stable (`master`) and beta (`develop`)
 
-- **`main` → stable releases** (`vX.Y.Z`). This is what most users
+- **`master` → stable releases** (`vX.Y.Z`). This is what most users
   should install.
 - **`develop` → beta prereleases** (`vX.Y.Z-beta.N`). GitHub marks these
   releases as a "Pre-release" automatically (Release Please's
-  `prerelease: true` config). Merging `develop` into `main` is what
+  `prerelease: true` config). Merging `develop` into `master` is what
   "promotes" accumulated beta work into the next real stable release.
 
 Both are handled by the same `.github/workflows/release.yml`, via two
@@ -21,7 +21,7 @@ for beta) so the two version lines and changelogs don't collide.
 
 ## How a release happens
 
-1. Commits land on `main` or `develop` (via PR, per branch protection)
+1. Commits land on `master` or `develop` (via PR, per branch protection)
    using [Conventional Commits](https://www.conventionalcommits.org/)
    (`feat:`, `fix:`, `feat!:`/`BREAKING CHANGE:`, etc.) — the same style
    already used in this repo.
@@ -31,7 +31,7 @@ for beta) so the two version lines and changelogs don't collide.
    commits (`fix:` → patch, `feat:` → minor, a `!` or `BREAKING CHANGE:`
    footer → major) and drafting `CHANGELOG.md` from their messages.
 3. Merging that release PR is the actual release trigger: Release Please
-   tags the merge commit (`vX.Y.Z` on `main`, `vX.Y.Z-beta.N` on
+   tags the merge commit (`vX.Y.Z` on `master`, `vX.Y.Z-beta.N` on
    `develop`), updates the version files it manages, and creates the
    GitHub Release with the changelog as its body.
 
@@ -40,7 +40,7 @@ after Release Please creates/updates the PR, the same job asks GitHub to
 auto-merge it (`gh pr merge --auto`), which waits for the branch's
 required status checks to pass and then merges it for you. This exists
 because leaving the release PR sitting open was actively harmful: every
-other PR that merged into `develop`/`main` in the meantime kept
+other PR that merged into `develop`/`master` in the meantime kept
 updating that same standing PR, and if it sat unmerged for a while before
 finally being merged, it was easy to lose track of which commits were and
 weren't actually reflected in `CHANGELOG.md` for that version. Auto-merge
@@ -52,7 +52,7 @@ stale.
 further workflow-triggering events from a push/merge made with the
 default `GITHUB_TOKEN`, to prevent recursive workflow runs. If the
 auto-merge step used `GITHUB_TOKEN`, the merge would land the release
-commit on `main`/`develop` but never fire the follow-up `push` event
+commit on `master`/`develop` but never fire the follow-up `push` event
 that lets `release-please-action` notice it and actually cut the tag +
 GitHub Release — the PR merges, but nothing downstream runs (this
 happened in practice; see the `RELEASE_PLEASE_TOKEN` secret and the

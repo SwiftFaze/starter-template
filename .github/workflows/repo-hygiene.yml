@@ -7,7 +7,7 @@ name: Repo hygiene
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [master, develop]
 
 jobs:
   # Was: CLAUDE.md and .claude/workflow.md growing without bound as one-off
@@ -31,7 +31,7 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
           HEAD_REF: ${{ github.head_ref }}
         run: |
-          # Release Please's own PRs and the develop -> main promotion carry no
+          # Release Please's own PRs and the develop -> master promotion carry no
           # single linked issue, by design.
           case "$HEAD_REF" in
             release-please--branches--*|develop)

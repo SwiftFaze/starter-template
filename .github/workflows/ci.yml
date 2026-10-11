@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [master, develop]
   push:
-    branches: [main, develop]
+    branches: [master, develop]
 
 jobs:
   branch-name:
@@ -19,7 +19,7 @@ jobs:
             exit 0
           fi
           if [[ "$branch" == "develop" ]]; then
-            echo "Branch name '$branch' OK (develop promotion into main)"
+            echo "Branch name '$branch' OK (develop promotion into master)"
             exit 0
           fi
           if [[ ! "$branch" =~ ^(fix|feat|hotfix|chore|docs|refactor|test)/[a-zA-Z0-9._/-]+$ ]]; then
@@ -28,8 +28,8 @@ jobs:
           fi
           echo "Branch name '$branch' OK"
 
-  main-source-check:
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+  master-source-check:
+    if: github.event_name == 'pull_request' && github.base_ref == 'master'
     runs-on: ubuntu-latest
     steps:
       - name: Validate PR source branch
@@ -38,9 +38,9 @@ jobs:
           case "$branch" in
             develop)                        echo "Branch '$branch' OK (develop promotion)"; exit 0 ;;
             hotfix/*)                       echo "Branch '$branch' OK (hotfix)"; exit 0 ;;
-            release-please--branches--main) echo "Branch '$branch' OK (Release Please's release branch)"; exit 0 ;;
+            release-please--branches--master) echo "Branch '$branch' OK (Release Please's release branch)"; exit 0 ;;
           esac
-          echo "::error::PRs into main are only allowed from 'develop' (a release promotion) or 'hotfix/*' (got '$branch')."
+          echo "::error::PRs into master are only allowed from 'develop' (a release promotion) or 'hotfix/*' (got '$branch')."
           exit 1
 
   build-and-test:

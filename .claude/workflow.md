@@ -9,7 +9,7 @@ hard-coding a stack, a repo or a board. Replace every `<placeholder>`.
 | Setting             | Value                                                                             |
 |---------------------|-----------------------------------------------------------------------------------|
 | Base branch         | `develop`: feature branches fork from it and PR back into it                      |
-| Release branch      | `main`: receives the base branch when a milestone ships                           |
+| Release branch      | `master`: receives the base branch when a milestone ships                           |
 | Verify command      | `<build + every test suite + coverage/lint gates, e.g. mvn verify, npm run verify>` |
 | Scenario command    | `<runs one acceptance scenario by name>`                                          |
 | Run command         | `<launches the app for the human playtest, e.g. npm start>`                       |
