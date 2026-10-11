@@ -1,7 +1,0 @@
-{
-  "id": "core:bread_loaf",
-  "name": "Bread Loaf",
-  "glyph": "%",
-  "type": "consumable",
-  "slot": "none"
-}

@@ -1,23 +1,9 @@
 # Docs index
 
-- [`architecture.md`](architecture.md) — overview of the engine/widgets/screens layering and package map, linking to the area docs below.
-  - [`architecture-engine.md`](architecture-engine.md) — entry point/window assembly, `GamePanel`/`Camera`, player movement, rendering contracts, keyboard input, game event log, `GameConst`.
-  - [`architecture-mod-content.md`](architecture-mod-content.md) — the world/tile model and mod-loaded content (tiles, buildings, classes, items, quests).
-  - [`architecture-dev-console.md`](architecture-dev-console.md) — the F1 dev console framework and its providers.
-- [`mod-format.md`](mod-format.md) — the mod JSON contract: schemas under `docs/schemas/`, namespaced ids, `overrides`, and how field-level validation errors are reported.
-- [`components.md`](components.md) — general rules for how a UI component receives its data and reports player actions (self-describing types, data-only contracts, opt-in adoption, internal-vs-cross-component state), with the Codex/Inventory details pane as a worked example.
-- [`ui-widgets.md`](ui-widgets.md) — the reusable Swing widget framework in `ui/widget/` (`ListWidget`, `TableWidget`, `PopupWidget`, etc.) and the mod-driven theming system that colors it.
-- [`ui-styling.md`](ui-styling.md) — concrete layout/spacing, typography, and color rules any panel or widget should follow (outer padding, component gap, h1/h2/p sizes, when a new theme color is actually justified).
-- [`screens.md`](screens.md) — how `Main.java` assembles and navigates between screens, and how each screen panel (Title, Settings, Keybinds, Inventory, Codex) composes the widgets from `ui-widgets.md`.
-- [`testing.md`](testing.md) — index: the three test layers (unit, acceptance, integration), where each lives, and how to run them, plus local-only QA key-replay runs.
-- [`testing-acceptance.md`](testing-acceptance.md) — Cucumber acceptance tests and glyph-grid approval tests.
-- [`testing-quality-gates.md`](testing-quality-gates.md) — mutation testing (PIT), PMD/JaCoCo, and the Error Prone/NullAway compile-time gates.
-- [`error-prone-checks.md`](error-prone-checks.md) — the ADD/EXCLUDE decision and reason for every Error Prone check not at ERROR by default.
-- [`testing-module-dependency.md`](testing-module-dependency.md) — the ArchUnit module-dependency and package-cycle gate.
-- [`uml-viewer.md`](uml-viewer.md) — the local UML diagram of Veil's classes with CRAP and mutation colouring: prerequisites, `bb export` / `bb metrics` / `bb view`, and its known limits.
+One line per doc: what it covers, so an agent can pick the right one without
+opening them all. Add a line whenever you add a doc.
+
+- [`architecture.md`](architecture.md) — layering, module map and the dependency rules between modules.
+- [`testing.md`](testing.md) — the test layers, where each lives, how to run them, and the gates around them.
 - [`release.md`](release.md) — the two release channels (`master` stable, `develop` beta) and why versioning/changelog generation is fully automatic.
-- [`ui-verification.md`](ui-verification.md) — how to visually verify a Swing UI change actually renders correctly, since this project's tests don't assert on pixel layout or rendered text.
-- [`wiki.md`](wiki.md) — the split between `docs/` (for contributors) and the player-facing [GitHub wiki](https://github.com/SwiftFaze/Veil/wiki) (for game content/numbers).
-- [`clean-code-gate.md`](clean-code-gate.md) — the one command (`.claude/tools/check-clean.sh`) a subagent must pass before reporting a task finished and the orchestrator runs to verify it: which Clean Code rules are automated, which are advisory heuristics, which stay judgment calls, and the checklist for those.
-- [`project-board.md`](project-board.md) — the one snippet skills use to set a `Status`/`Priority` field on the VEIL project board, and the read-back check that confirms it landed.
 - [`instruction-files.md`](instruction-files.md) — how `CLAUDE.md` and `.claude/*.md` are kept from decaying: size budgets tiered by load frequency, the one-canonical-home rule, the review checklist for changes to them, and the monthly audit.

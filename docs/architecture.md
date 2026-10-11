@@ -1,46 +1,30 @@
 # Architecture
 
-Veil is a 2D ASCII-tile desktop RPG built with Java 17 Swing (no game
-engine). Rendering draws Unicode/ASCII glyphs with `Graphics2D.drawString`
-onto a `JPanel`.
+<!-- TEMPLATE: replace each section. Keep this an overview that links to
+area docs (docs/architecture-<area>.md) once it outgrows one page. The
+devflow coder agent reads this file on every run, so keep it short. -->
 
-This file covers the game engine and data model. UI is documented
-separately: `docs/ui-widgets.md` covers the reusable Swing widget
-framework and theming, `docs/screens.md` covers how those widgets
-compose into the game's actual screens, and `docs/components.md` covers
-the self-describing list/detail data contract screens use to feed those
-widgets. See `docs/README.md` for the full doc index.
+## Overview
 
-This engine/widgets/screens layering is mechanically enforced, not just
-documented: `ModuleDependencyTest` (ArchUnit) fails the build if engine
-code depends on the UI layer, or if a widget depends on a screen. See
-`docs/testing-module-dependency.md` for the exact rule and why `Main` and
-`sandbox` are excluded.
+`<What the system is, its entry point(s), and the main runtime flow in a few
+sentences.>`
 
-## Where to read next
+## Modules
 
-This file is only the overview. Each area has its own doc — add new detail
-there, not here:
+| Module / package | Responsibility | May depend on |
+|---|---|---|
+| `<domain>` | `<business rules, no framework code>` | nothing |
+| `<application>` | `<use cases, orchestration>` | `<domain>` |
+| `<ui / api / infra>` | `<delivery and adapters>` | `<application>`, `<domain>` |
 
-- [`architecture-engine.md`](architecture-engine.md) — entry point/window
-  assembly, `GamePanel` and `Camera`, player movement, rendering contracts
-  (`DrawableAsciiEntity`), keyboard input, the game event log, `GameConst`.
-- [`architecture-mod-content.md`](architecture-mod-content.md) — the
-  `WorldScene`/`Tile` world model and mod-loaded content via
-  `ModLoader`/`ModRegistry`: tiles, buildings, player classes/stats, items,
-  quests.
-- [`architecture-dev-console.md`](architecture-dev-console.md) — the F1 dev
-  console (`-Dveil.devConsole=true`): command runner, completion/history, and
-  each `DevConsoleProvider` (class sandbox, player sandbox, ...).
+## Dependency rule
 
-## Package map
+`<Which direction dependencies may point, and the test or lint rule that
+enforces it (e.g. an ArchUnit test, eslint-plugin-boundaries,
+dependency-cruiser).>` A violation is fixed by inverting the dependency or
+extracting an interface, never by weakening the rule (`.claude/workflow.md`).
 
-Under `com.swiftfaze.veil`:
+## Key decisions
 
-- `Main`, `ui/`, `component/` — window assembly, Swing screens/widgets, and the
-  list/detail data contract (UI layer).
-- `world/`, `entities/`, `mods/`, `input/`, `game/`, `config/`, `exceptions/`,
-  `render/` (`Camera`, `DrawableAsciiEntity`, `Positionable`; depends on
-  nothing else in the project) and the root `GameConst` — the engine; never
-  depends on the UI layer.
-- `sandbox/` — dev-only tooling, excluded from the layering rule.
+`<Non-obvious design decisions and why they were made. One bullet each, with
+the date or PR.>`

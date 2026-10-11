@@ -1,7 +1,0 @@
-{
-  "id": "core:torch",
-  "name": "Torch",
-  "glyph": "t",
-  "type": "consumable",
-  "slot": "off_hand"
-}

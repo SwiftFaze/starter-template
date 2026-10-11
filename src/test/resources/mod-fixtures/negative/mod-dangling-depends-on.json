@@ -1,4 +1,0 @@
-{
-  "id": "broken-pack",
-  "dependsOn": ["nonexistent-mod"]
-}

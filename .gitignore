@@ -1,18 +1,21 @@
+# Build output (add your stack's: /target/, /build/, /dist/, node_modules/, __pycache__/ ...)
 /target/
+
+# IDE / OS
 /.idea/
-/dependency-reduced-pom.xml
-/wiki/
-/settings.json
-/.jqwik-database
+/.vscode/
+/.clj-kondo/
+/.lsp/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Claude Code: per-user settings and devflow's parallel-work worktrees
+/.claude/settings.local.json
+/.claude/worktrees/
 
 # Intent docs are local scratch (see specs/intent/README.md) — never committed except the two
 # files the pipeline itself depends on.
 /specs/intent/*
 !/specs/intent/README.md
 !/specs/intent/TEMPLATE.md
-
-# CRAP gate metrics for uml-viewer (written by CrapReport during mvn verify)
-/.metrics/
-
-# uml-viewer session state (tmux/companion mailbox), written by `bb view`
-/.uml-viewer/

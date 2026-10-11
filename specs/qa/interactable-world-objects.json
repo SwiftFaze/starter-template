@@ -1,7 +1,0 @@
-{
-  "script": "interactable-world-objects.keys",
-  "expect": [
-    {"type": "PlayerMoved", "x": 133, "y": 137},
-    {"type": "PlayerMoved", "x": 133, "y": 136}
-  ]
-}

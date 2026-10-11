@@ -2,7 +2,7 @@ name: Close linked issues
 
 # Feature PRs merge into `develop`, not the default branch (`master`), so
 # GitHub's own "Closes #N" auto-close never fires for them. This does it —
-# replacing the manual Step 7.5 in CLAUDE.md.
+# automating Step 7.5 of .claude/workflow.md.
 
 on:
   pull_request:
